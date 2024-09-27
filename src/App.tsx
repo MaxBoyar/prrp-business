@@ -1,10 +1,6 @@
 import  {ChangeEvent, useCallback, useEffect, useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import * as Tesseract from "tesseract.js";
-import Dragger from "antd/es/upload/Dragger";
-import { InboxOutlined } from '@ant-design/icons';
 
 function App() {
     const [selectedImage, setSelectedImage] = useState<File|null>(null)
