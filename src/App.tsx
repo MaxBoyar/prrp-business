@@ -147,7 +147,7 @@ function App() {
         {/*  <img src={reactLogo} className="logo react" alt="React logo" />*/}
         {/*</a>*/}
       </div>
-      <h1>PRRP Business receipts creator</h1>
+      <h1>PRRP Business receipts creators</h1>
         <input type={"file"} onChange={handleChangeImage} accept="image/*" />
         {selectedImage && (
             <div style={{ marginTop: '20px' }}>
