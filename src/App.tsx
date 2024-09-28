@@ -58,28 +58,7 @@ function App() {
             await extractTextFromImage(file);
         }
     }
-
-
-    function getCommandOld(extractedText: string) {
-        // Regular expressions to extract the fields
-        const addressMatch = extractedText.match(/^(.*?)\s*Owner:/);  // Capture from start until "Owner:"
-        const ownerMatch = extractedText.match(/Owner:\s*(.*?)(?=\s*Description:)/);
-        //const shellMatch = extractedText.match(/Shell:\s*(.*?)(?=\s*For Sale:)/);  // Now constrained between "Shell:" and "For Sale:"
-        //const shellMatch = extractedText.match(/Shel{1,2}:\s*(.*?)(?=\s*For Sale:)/);
-        const shellMatch = extractedText.match(/Shel{1,2}:\s*(.*?)(?=\s*For\s*Sale:|\s*ForSale:)/);
-
-
-
-        // Extracted values
-        const address = addressMatch ? addressMatch[1] : '';
-        const owner = ownerMatch ? ownerMatch[1] : '';
-        const shell = shellMatch ? shellMatch[1] : '';
-
-        // Create the string
-        const result = `/house-receipt realestate-name:James Win customer-name:${owner} street:${address} sheel:${shell}`;
-
-        return result;
-    }
+    
     function getCommand(extractedText: string) {
         // Regular expressions to extract the fields
         const addressMatch = extractedText.match(/^(.*?)\s*Owner:/);  // Capture from start until "Owner:"
