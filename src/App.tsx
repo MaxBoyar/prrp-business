@@ -1,9 +1,11 @@
 import  {ChangeEvent, useCallback, useEffect, useState} from 'react'
 import './App.css'
 import {Utils} from "./utils/Utils.ts";
-import {notification} from "antd";
+import {Input, notification} from "antd";
+import {useLocalStorageState} from "./hooks/useLocalStorageState.ts";
 
 function App() {
+    const [realEstateName, setRealEstateName] = useLocalStorageState("realEstateName","");
     const [selectedImage, setSelectedImage] = useState<File|null>(null)
     const [text, setText] = useState<string>('');
     const [api, contextHolder] = notification.useNotification();
@@ -63,7 +65,6 @@ function App() {
         // Regular expressions to extract the fields
         const addressMatch = extractedText.match(/^(.*?)\s*Owner:/);  // Capture from start until "Owner:"
         const ownerMatch = extractedText.match(/Owner:\s*(.*?)(?=\s*(?:Description:|Descrition:))/);
-
         const shellMatch = extractedText.match(/Shel{1,2}:\s*(.*?)(?=\s*For\s*Sale:|\s*ForSale:)/);
 
         // Extracted values
@@ -77,7 +78,7 @@ function App() {
         }
 
         // Create the string
-        const result = `/house-receipt realestate-name:James Win customer-name:${owner} street:${address} sheel:${shell}`;
+        const result = `/house-receipt realestate-name:${realEstateName} customer-name:${owner} street:${address} sheel:${shell}`;
 
         return result;
     }
@@ -87,15 +88,10 @@ function App() {
     return (
       <>
           {contextHolder}
-          {/*<div>*/}
-          {/*    <a href="https://vitejs.dev" target="_blank">*/}
-          {/*        <img*/}
-          {/*            src={"https://dunb17ur4ymx4.cloudfront.net/webstore/logos/62c93cceaf438bf405a88e9eef4eaf0f7f22ba3b.png"}*/}
-          {/*            className="logo" alt="Vite logo"/>*/}
-          {/*    </a>*/}
-          {/*</div>*/}
           <h1>PRRP Business receipts creators</h1>
+          <Input placeholder="Real estate name" value={realEstateName} onChange={(e) => setRealEstateName(e.target.value)} />
           <input type={"file"} onChange={handleChangeImage} accept="image/*"/>
+
           {selectedImage && (
               <div style={{marginTop: '20px'}}>
                   <p>Selected Image:</p>
@@ -112,11 +108,6 @@ function App() {
                   <p>{text}</p>
               </div>
           )}
-
-
-          {/*<p className="read-the-docs">*/}
-          {/*  Click on the Vite and React logos to learn more*/}
-          {/*</p>*/}
       </>
   )
 }
